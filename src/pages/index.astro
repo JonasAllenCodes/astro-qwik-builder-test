@@ -1,16 +1,11 @@
 ---
-
+import MainLayout from "../layouts/MainLayout.astro";
 ---
-
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+	
+<MainLayout title="Home">
+	<ul>
+		<li><a href="/simple-counter/">Simple Counter</a></li>
+		<li><a href="/contex-shared-signal/">Shared Signal Between Islands/Components</a></li>
+		<li><a href="/coding-with-jason-and-steve/">Coding with Jason on Qwik + Astro pref on pref with @Steve8708</a></li>
+	</ul>
+</MainLayout>

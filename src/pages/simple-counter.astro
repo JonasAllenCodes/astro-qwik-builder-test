@@ -1,0 +1,12 @@
+---
+import MainLayout from "../layouts/MainLayout.astro";
+import { Counter } from "../components/counter";
+---
+
+<MainLayout title="Simple Counter">
+	<p>This is a simple counter no shared signal</p>
+
+	<!--  no hydration directive! -->
+	<Counter />
+
+</MainLayout>

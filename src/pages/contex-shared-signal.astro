@@ -1,0 +1,15 @@
+---
+import MainLayout from "../layouts/MainLayout.astro";
+import { CounterShared } from "../components/counter-shared";
+import { Island } from	"../components/random-island";
+
+const initialVal = 5;
+---
+
+<MainLayout title="">
+    <p>Use of context for shared signal of islands/components</p>
+    
+    <CounterShared initialVal={initialVal} />
+
+    <Island initialVal={initialVal} />
+</MainLayout>
