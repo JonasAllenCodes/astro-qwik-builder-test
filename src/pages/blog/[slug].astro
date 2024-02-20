@@ -50,4 +50,20 @@ const { html: postHTML } = await fetch(
     <article>
         <Fragment set:html={postHTML} />
     </article>
+
+    <hr />
+
+    <strong><a href="./">Back to the Blog!</a></strong>
+
+    <hr />
+
+    <p>
+        <strong>Source: </strong>
+        <a
+            href="https://docs.astro.build/en/guides/cms/builderio/"
+            target="_blank"
+        >
+        https://docs.astro.build/en/guides/cms/builderio/
+        </a>
+    </p>
 </MainLayout>
