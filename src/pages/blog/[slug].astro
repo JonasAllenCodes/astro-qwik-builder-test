@@ -1,0 +1,69 @@
+---
+import MainLayout from "../../layouts/MainLayout.astro";
+
+export async function getStaticPaths() {
+    const builderPageModel = import.meta.env.BUILDER_PAGE_MODEL;
+    const builderAPIpublicKey = import.meta.env.BUILDER_API_PUBLIC_KEY;
+    const { results: posts } = await fetch(
+        `https://cdn.builder.io/api/v3/content/${builderPageModel}?${new URLSearchParams(
+            {
+                apiKey: builderAPIpublicKey,
+                fields: ["data.slug", "data.title"].join(","),
+                cachebust: "true",
+            }
+            ).toString()}`
+    )
+        .then((res) => res.json())
+        .catch
+        // (...catch some errors...);
+        ();
+    return [
+        ...posts.flatMap(({ data: { slug, title } }) => [
+            {
+                params: { slug },
+                props: { title },
+            },
+        ]),
+    ];
+}
+
+const { slug } = Astro.params;
+const { title } = Astro.props;
+
+const builderPageModel = import.meta.env.BUILDER_PAGE_MODEL;
+const builderAPIpublicKey = import.meta.env.BUILDER_API_PUBLIC_KEY;
+// Builder's API requires this field but for this use case the url doesn't seem to matter - the API returns the same HTML
+const encodedUrl = encodeURIComponent("moot");
+const { html: pageHTML } = await fetch(
+    `https://cdn.builder.io/api/v1/qwik/${builderPageModel}?${new URLSearchParams({
+        apiKey: builderAPIpublicKey,
+        url: encodedUrl,
+        "query.data.slug": slug,
+        cachebust: "true",
+    }).toString()}`
+)
+    .then((res) => res.json())
+    .catch();
+---
+
+<MainLayout title={title}>
+    <article>
+        <Fragment set:html={pageHTML} />
+    </article>
+
+    <hr />
+
+    <strong><a href="../">Back to the Blog!</a></strong>
+
+    <hr />
+
+    <p>
+        <strong>Source: </strong>
+        <a
+            href="https://docs.astro.build/en/guides/cms/builderio/"
+            target="_blank"
+        >
+        https://docs.astro.build/en/guides/cms/builderio/
+        </a>
+    </p>
+</MainLayout>
